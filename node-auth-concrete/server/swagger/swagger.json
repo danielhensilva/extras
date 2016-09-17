@@ -1,0 +1,217 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Desafio node.js - Concrete Solutions",
+        "version": "1.0.0"
+    },
+    "host": "localhost:9000",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/users": {
+            "post": {
+                "summary": "Cadastro de usuários",
+                "parameters": [
+                    {
+                        "name": "usuário",
+                        "in": "body",
+                        "description": "Entidade do usuário",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Usuário"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Sign Up"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Entidade do usuário criada",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UsuarioCompleto"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Errors",
+                        "schema": {
+                            "$ref": "#/definitions/Erro"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Pesquisa de usuários",
+                "parameters": [
+                    {
+                        "name": "Authentication",
+                        "in": "header",
+                        "description": "Token de acesso",
+                        "required": true,
+                        "default": "Bearer {token}",
+                        "type": "string"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "Identificador do usuário",
+                        "required": true,
+                        "default": "",
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Entidade do usuário criada",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UsuarioCompleto"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Errors",
+                        "schema": {
+                            "$ref": "#/definitions/Erro"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/": {
+            "post": {
+                "summary": "Autenticação de usuários",
+                "parameters": [
+                    {
+                        "name": "credenciais",
+                        "in": "body",
+                        "description": "E-mail e senha de acesso",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Credenciais"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Sign In"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Entidade do usuário criada",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UsuarioCompleto"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Errors",
+                        "schema": {
+                            "$ref": "#/definitions/Erro"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Credenciais": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "senha": {
+                    "type": "string"
+                }
+            }
+        },
+        "Usuário": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "senha": {
+                    "type": "string"
+                },
+                "telefones": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Telefone"
+                    }
+                }
+            }
+        },
+        "UsuarioCompleto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "telefones": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Telefone"
+                    }
+                },
+                "dataCriacao": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "dataAtualizacao": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "ultimoLogin": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "Telefone": {
+            "type": "object",
+            "properties": {
+                "ddd": {
+                    "type": "string"
+                },
+                "numero": {
+                    "type": "string"
+                }
+            }
+        },
+        "Erro": {
+            "type": "object",
+            "properties": {
+                "mensagem": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
