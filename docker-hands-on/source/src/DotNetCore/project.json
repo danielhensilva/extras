@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "version": "1.0.1",
+      "version": "1.1.0-*",
       "type": "platform"
     },
     "Microsoft.AspNetCore.Mvc": "1.0.1",
@@ -18,7 +18,10 @@
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
     "MySql.Data.EntityFrameworkCore": "7.0.5-IR21",
-    "Microsoft.Extensions.DependencyInjection": "1.1.0-preview1-final"
+    "Microsoft.Extensions.DependencyInjection": "1.1.0-preview1-final",
+    "Microsoft.AspNetCore.Mvc.Cors": "1.0.1",
+    "Microsoft.AspNetCore.Cors": "1.0.0",
+    "System.Security.Cryptography.Algorithms": "4.3.0-preview1-24530-04"
   },
 
   "tools": {

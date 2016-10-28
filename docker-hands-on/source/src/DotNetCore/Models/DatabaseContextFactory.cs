@@ -25,14 +25,15 @@ namespace DotNetCore.Models
                     if (context == null)
                     {
                         var builder = new DbContextOptionsBuilder<DatabaseContext>();
-                        builder.UseMySQL(settings.MySqlConnectionString);
 
+                        builder.UseMySQL(settings.MySqlConnectionString);
                         context = new DatabaseContext(builder.Options);
-                        context.Database.EnsureCreated();
 
                         var serviceProvider = context.GetInfrastructure<IServiceProvider>();
                         var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
                         loggerFactory.AddProvider(new DefaultLoggerProvider());
+
+                       context.Database.EnsureCreated();
                     }
                 }
             }

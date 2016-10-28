@@ -6,10 +6,12 @@ using DotNetCore.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 
 namespace DotNetCore.Controllers
 {
+    [DisableCors]
     [Route("api/[controller]")]
     public class ProductsController : Controller
     {
