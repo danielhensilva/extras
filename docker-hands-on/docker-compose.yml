@@ -1,0 +1,16 @@
+version: '2'
+services:
+  backend:
+    build: ./back
+    ports:
+    - "5000:80"
+    links:
+    - database
+  database:
+    build: ./db
+    volumes:
+    - C:\Temp\mysql:/var/lib/mysql
+  frontend:
+    build: ./front
+    ports:
+    - "80:80"
