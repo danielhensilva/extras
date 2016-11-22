@@ -1,0 +1,20 @@
+{
+  "name": "testing-gremlins",
+  "description": "Monkey testing with gremlins",
+  "main": "index.js",
+  "authors": [
+    "Daniel H da Silva"
+  ],
+  "license": "unlicensed",
+  "homepage": "https://github.com/danielhensilva/extras",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "gremlins.js": "^0.1.0"
+  }
+}
