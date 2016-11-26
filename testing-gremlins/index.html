@@ -31,30 +31,19 @@
 
       <script>
 
-        var horde = gremlins.createHorde();
-
-        gremlins.species.clicker()
-          .clickTypes(['click']) // which mouse event types will be triggered
-          .canClick(function(element) {
-            // only click elements in bar
-            return document.querySelectorAll('button, input');
-            // when canClick returns false, the gremlin will look for another
-            // element to click on until maxNbTries is reached
-          })
-
-        gremlins.species.toucher()
-          .touchTypes(['gesture'])
-          .positionSelector(function() {
-             // only touch inside the foo element area
-             var $el = $('div.form');
-             var offset = $el.offset();
-             return [
-               parseInt(Math.random() * $el.outerWidth() + offset.left),
-               parseInt(Math.random() * $el.outerHeight() + offset.top)
-             ];
-          })
-
-        horde.unleash();
+        gremlins
+            .createHorde()
+            .gremlin(gremlins.species.clicker()
+                .clickTypes(['click'])
+                .canClick(function(element) {
+                    var node = $(element)[0].nodeName;
+                    var clickables =  ['BUTTON', 'INPUT', 'A'];
+                    return clickables.indexOf(node) >= 0;
+                })
+            )
+            .gremlin(gremlins.species.scroller())
+            .gremlin(gremlins.species.formFiller())
+            .unleash();
 
       </script>
 
