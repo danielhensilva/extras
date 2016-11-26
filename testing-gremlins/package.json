@@ -1,0 +1,10 @@
+{
+  "name": "testing-gremlins",
+  "version": "1.0.0",
+  "description": "Monkey testing with gremlins",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "Daniel H da Silva",
+  "license": "unlicensed"
+}
