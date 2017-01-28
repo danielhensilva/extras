@@ -1,0 +1,19 @@
+body {
+  padding: 50px;
+}
+
+nav > div {
+  margin: 15px;
+}
+
+fieldset {
+  margin-bottom: 50px;
+}
+
+span.action {
+  cursor: pointer;
+}
+
+span.action:hover {
+  opacity: 0.5;
+}

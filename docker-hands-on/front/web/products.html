@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>DockerHandsOn - front/web</title>
+        <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="main.css"></link>
+    </head>
+    <body>
+
+        <fieldset>
+            <legend>ProductsController - GetAll</legend>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nome</th>
+                  <th>Preço</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>ProductsController - Insert</legend>
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+                <label for="price">Preço</label>
+                <input type="number" class="form-control" id="price">
+            </div>
+            <button type="button" class="btn btn-default">Enviar</button>
+        </fieldset>
+
+        <script>
+
+            function updateTable() {
+              var container = $('table.table tbody');
+              $.getJSON('http://localhost:5000/api/products', function(data) {
+                container.empty();
+                console.log(data);
+                if (data == null || data.length == 0) {
+                  container.append(
+                    `<tr>
+                      <td colspan="4">Nenhum registro</td>
+                    </tr>`
+                  );
+                  return;
+                }
+                $(data).each(function() {
+                  container.append(
+                    `<tr>
+                      <td>${this.id}</td>
+                      <td>${this.name}</td>
+                      <td>${this.price}</td>
+                      <td>
+                        <span class="action glyphicon glyphicon-remove" data-id="${this.id}"></span>
+                      </td>
+                    </tr>`)
+                  });
+              });
+            }
+
+            function insertProduct(name, price) {
+              $.ajax({
+                method: 'POST',
+                contentType:'application/json',
+                url: "http://localhost:5000/api/products",
+                data: JSON.stringify({
+                  name: name,
+                  price: price
+                })
+              })
+              .done(function() {
+                updateTable();
+              })
+              .catch(function(err) {
+                alert("Error");
+              });
+            }
+
+            function deleteProduct(id) {
+              $.ajax({
+                method: 'DELETE',
+                url: `http://localhost:5000/api/products/${id}`
+              })
+              .done(function() {
+                updateTable();
+              })
+              .catch(function(err) {
+                alert("Error");
+              });
+            }
+
+
+            $(function() {
+
+              $('button').click(function() {
+                insertProduct(
+                  $('#name').val(),
+                  $('#price').val()
+                );
+              });
+
+              $('tbody').on('click', '.action', function() {
+                deleteProduct(
+                  $(this).attr('data-id')
+                );
+              });
+
+              updateTable();
+
+            });
+        </script>
+
+    </body>
+</html>
+
