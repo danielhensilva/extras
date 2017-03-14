@@ -1,0 +1,16 @@
+.nav.navbar-nav {
+  font-size: 15px;
+}
+#searchForm {
+  opacity: 1;
+  transition: opacity 0.3s ease-out, width 0.3s, height 0.3s;
+  margin-right: 100px;
+}
+@media (max-width: 1200px) {
+  #searchForm {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+}
