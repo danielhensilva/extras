@@ -3,7 +3,6 @@ import { EventService } from './shared/event.service';
 import { ToastrService } from '../common/toastr.service';
 
 @Component({
-  selector: 'events-list',
   templateUrl: 'app/events/events-list.component.html'
 })
 export class EventsListComponent implements OnInit {
