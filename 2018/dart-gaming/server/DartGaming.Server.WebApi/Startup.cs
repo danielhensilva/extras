@@ -17,12 +17,12 @@ namespace DartGaming.Server.WebApi
 {
     public class Startup
     {
+        private IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,7 +36,19 @@ namespace DartGaming.Server.WebApi
             );
         }
 
-        public void ConfigureSwaggerGen(SwaggerGenOptions options)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DartGaming.Server.WebApi v1")
+            );
+        }
+
+        private void ConfigureSwaggerGen(SwaggerGenOptions options)
         {
             var info = new Info();
             info.Title = typeof(Startup).Namespace;
@@ -48,18 +60,6 @@ namespace DartGaming.Server.WebApi
 
             options.SwaggerDoc(info.Version, info);
             options.IncludeXmlComments(xmlDocsFullPath);
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
-
-            app.UseMvc();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DartGaming.Server.WebApi v1")
-            );
         }
     }
 }
