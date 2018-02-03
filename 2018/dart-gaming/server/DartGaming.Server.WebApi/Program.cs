@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+
+[assembly:InternalsVisibleTo("DartGaming.Server.Tests")]
 
 namespace DartGaming.Server.WebApi
 {
@@ -14,15 +10,10 @@ namespace DartGaming.Server.WebApi
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
-
-        internal static IWebHost BuildWebHost(string[] args) 
-        {
-            return 
-                WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .Build();
+                .Build()
+                .Run();
         }
     }
 }

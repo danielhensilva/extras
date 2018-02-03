@@ -1,5 +1,3 @@
-using System;
-
 namespace DartGaming.Server.WebApi.ViewModels.Auth
 {
     public class AuthViewModel

@@ -4,7 +4,7 @@ using DartGaming.Server.WebApi.Services;
 using FluentAssertions;
 using Xunit;
 
-namespace DartGaming.Server.Tests
+namespace DartGaming.Server.Tests.Services
 {
     public class AuthServiceTests
     {
@@ -14,10 +14,13 @@ namespace DartGaming.Server.Tests
             var user = new User();
             user.Id = 100;
 
-            var service = new AuthService();
+            var date = DateTime.Now;
+            var epochService = new EpochService(date);
+            var service = new AuthService(epochService);
+            
             var token = service.Auth(user);
             token.Should().NotBeNullOrWhiteSpace();
-            
+
             var verifiedUser = service.Verify(token);
             verifiedUser.Should().NotBeNull();
             verifiedUser.Id.Should().Be(user.Id);

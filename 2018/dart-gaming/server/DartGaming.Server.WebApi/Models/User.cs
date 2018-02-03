@@ -1,5 +1,3 @@
-using System;
-
 namespace DartGaming.Server.WebApi.Models
 {
     public class User
