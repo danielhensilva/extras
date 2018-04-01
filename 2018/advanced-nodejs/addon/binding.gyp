@@ -1,4 +1,4 @@
-{
+node{
   "targets": [
     {
       "target_name": "addon",
