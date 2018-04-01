@@ -19,6 +19,11 @@ const print = (header) => {
     console.log('*'.repeat(header.length));
 };
 
+// process.argv
+// [0] = node.exe
+// [1] = event-loop.js
+// [*] = additional arguments
+
 if (require.main == module) {
     // Running as a script
     // -> Calling function directly
