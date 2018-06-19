@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Projects\extras\2015\html-to-pdf" t="IncludeRecursive">
+      <e p="App.config" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="HtmlToPdf.csproj" t="IncludeRecursive" />
+      <e p="HtmlToPdf.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+      </e>
+    </e>
+    <e p="C:\Users\danie\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_HtmlToPdf.-396469368.00" t="ExcludeRecursive" />
+  </component>
+</project>
