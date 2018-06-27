@@ -11,6 +11,10 @@ import { SidebarMenuComponent } from './sidebar/sidebar-menu.component';
 import { SidebarNotificationsComponent } from './sidebar/sidebar-notifications.component';
 import { MainComponent } from './main/main.component';
 import { MainBreadcrumbComponent } from './main/main-breadcrumb.component';
+import { SidebarUserComponent } from './sidebar/sidebar-user.component';
+import { AuthSignInComponent } from './auth/auth-sign-in.component';
+import { AuthSignUpComponent } from './auth/auth-sign-up.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { MainBreadcrumbComponent } from './main/main-breadcrumb.component';
     SidebarMenuComponent,
     SidebarNotificationsComponent,
     MainComponent,
-    MainBreadcrumbComponent
+    MainBreadcrumbComponent,
+    SidebarUserComponent,
+    AuthSignInComponent,
+    AuthSignUpComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule
