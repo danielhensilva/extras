@@ -1,32 +1,5 @@
-.footer {
-  background-color: #dedede;
-  margin: 60px 0 0 0;
-  padding: 10px;
-  font-size: 14px;
-}
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-ul.column-left {
-  clear: both;
-  float: left;
-  text-align: right;
-  width: 30%;
-}
-ul.column-center {
-  float: left;
-  text-align: center;
-  width: 40%;
-}
-ul.column-right {
-  float: left;
-  text-align: left;
-  width: 30%;
-}
-.copyright {
-  clear: both;
-  margin: 10px;
-  text-align: center;
+footer {
+  padding: 2em 0 1em 0;
+  border-top: 1px solid #dfdfdf;
+  height: 100px;
 }
