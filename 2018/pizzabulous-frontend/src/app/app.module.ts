@@ -26,8 +26,9 @@ import { RegisterComponent } from './auth/register/register.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
-  { path: 'auth', component: AuthComponent, children: [
-    { path: 'register', component: RegisterComponent }
+  { path: 'auth', children: [
+    { path: 'register', component: RegisterComponent },
+    { path: '', component: AuthComponent },
   ]},
   { path: 'pizzas', component: PizzasListComponent },
   { path: '**', component: NotFoundComponent }
