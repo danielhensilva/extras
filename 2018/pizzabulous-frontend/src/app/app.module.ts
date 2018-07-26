@@ -8,6 +8,8 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
   MatToolbarModule,
   MatIconModule
 } from '@angular/material';
@@ -19,13 +21,13 @@ import { PizzasListComponent } from './pizzas/pizzas-list/pizzas-list.component'
 import { PizzaCardComponent } from './pizzas/pizza-card/pizza-card.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FooterComponent } from './footer/footer.component';
-import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AuthComponent } from './auth/auth.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'auth', component: AuthComponent, children: [
-    { path: 'sign-in', component: SignInComponent }
+    { path: 'register', component: RegisterComponent }
   ]},
   { path: 'pizzas', component: PizzasListComponent },
   { path: '**', component: NotFoundComponent }
@@ -40,8 +42,8 @@ const appRoutes: Routes = [
     PizzaCardComponent,
     NotFoundComponent,
     FooterComponent,
-    SignInComponent,
-    AuthComponent
+    AuthComponent,
+    RegisterComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -54,6 +56,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatToolbarModule,
     MatIconModule
   ],
