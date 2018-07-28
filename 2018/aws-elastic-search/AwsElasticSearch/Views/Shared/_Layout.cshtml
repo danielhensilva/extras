@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AwsElasticSearch</title>
+    <environment include="Development">
+        <script src="~/js/vue.js" asp-append-version="true"></script>
+        <link rel="stylesheet" href="~/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="~/css/site.css"/>
+    </environment>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Index</a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Vehicle" asp-action="Index">Vehicles</a></li>
+        </ul>
+    </nav>
+
+<div class="container body-content">
+    <div class="mt-5 mb-5">
+        @RenderBody()
+    </div>
+    <hr/>
+    <footer class="clearfix">
+        <p>&copy; 2018 - AwsElasticSearch</p>
+    </footer>
+</div>
+
+    <environment include="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
