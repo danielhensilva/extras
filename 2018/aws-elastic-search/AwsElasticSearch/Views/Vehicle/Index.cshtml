@@ -1,101 +1,241 @@
-﻿<div class="row">
+﻿<div id="database-table" class="row mb-5">
     <div class="col-12">
         <h4>Database</h4>
     </div>
-    <div class="col-12">
-        <pre>
-SELECT *
-FROM tbl_Something
-WHERE Active = 1
-            </pre>
-    </div>
-    <div class="col-12">
-        <div id="database-table">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col" v-for="col in columns" v-on:click="sortByColumn(col)" class="mouse-pointer text-uppercase">
-                        {{col}}
-                        <div class="arrow"
-                             v-if="col == sorting.columnName"
-                             v-bind:class="[sorting.ascending ? 'asc' : 'dsc']">
-                        </div>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="row in rows">
-                    <td v-for="col in columns" v-bind:scope="col == 'id' ? 'row' : null">{{row[col]}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <caption>
-                <button
-                    class="btn btn-light m-1"
-                    v-for="i in count"
-                    v-bind:class="[i == pagination.currentPage ? 'active' : '']"
-                    v-on:click="changePage(i)">
-                    {{i}}
-                </button>
-            </caption>
+    <div class="col-12 mb-2">
+        <div class="input-group mb-1">
+            <input type="text" 
+                   class="form-control" 
+                   v-model="searchText" 
+                   placeholder="Search terms" 
+                   aria-label="Search terms" 
+                   aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" v-on:click="syncServer()">Search</button>
+            </div>
         </div>
     </div>
-    <script>
-        new Vue({
-            el: '#database-table',
-            data: {
-                pagination: {
-                    currentPage: 1,
-                    pageSize: 5
-                },
-                sorting: {
-                    ascending: true,
-                    columnName: 'id'
-                },
-                rows: [],
-                count: 0
+    <div class="col-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" v-for="col in columns" v-on:click="sortByColumn(col)" class="mouse-pointer text-uppercase">
+                    {{col}}
+                    <div class="arrow"
+                         v-if="col == sorting.columnName"
+                         v-bind:class="[sorting.ascending ? 'asc' : 'dsc']">
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="row in rows">
+                <td v-for="col in columns" v-bind:scope="col == 'id' ? 'row' : null">
+                    {{row[col].length > 16 ? row[col].substring(0, 13).trim() + '...' : row[col]}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <button
+                class="btn btn-light m-1"
+                v-for="i in count"
+                v-bind:class="[i == pagination.currentPage ? 'active' : '']"
+                v-on:click="changePage(i)">
+                {{i}}
+            </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <pre>{{ queryText }}</pre>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#database-table',
+        data: {
+            pagination: {
+                currentPage: 1,
+                pageSize: 5
             },
-            mounted: function() {
+            sorting: {
+                ascending: true,
+                columnName: 'id'
+            },
+            searchText: '',
+            rows: [],    
+            count: 0
+        },
+        mounted: function() {
+            this.syncServer();
+        },
+        methods: {
+            syncServer: function() {
+                var url = [
+                    '/api/database/vehicles?',
+                    'page=', this.pagination.currentPage,
+                    '&size=', this.pagination.pageSize,
+                    '&column=', this.sorting.columnName,
+                    '&orientation=', this.sorting.ascending ? 'asc' : 'desc',
+                    '&search=', encodeURIComponent(this.searchText)
+                ].join('');
+                this.$http.get(url).then(response => {
+                    this.rows = response.body.pageRows;
+                    this.count = response.body.totalPages;
+                    this.queryText = response.body.queryText;
+                });
+            },
+            sortByColumn: function(columName) {
+                if (this.sorting.columnName === columName) {
+                    this.sorting.ascending = !this.sorting.ascending;
+                } else {
+                    this.sorting.columnName = columName;
+                    this.sorting.ascending = true;
+                }
                 this.syncServer();
             },
-            methods: {
-                syncServer: function() {
-                    var url = [
-                        '/api/database/vehicles?',
-                        'page=', this.pagination.currentPage,
-                        '&size=', this.pagination.pageSize,
-                        '&column=', this.sorting.columnName,
-                        '&orientation=', this.sorting.ascending ? 'asc' : 'desc'
-                    ].join('');
-                    this.$http.get(url).then(response => {
-                        this.rows = response.body.pageRows;
-                        this.count = response.body.totalPages;
-                    });
-                },
-                sortByColumn: function(columName) {
-                    if (this.sorting.columnName === columName) {
-                        this.sorting.ascending = !this.sorting.ascending;
-                    } else {
-                        this.sorting.columnName = columName;
-                        this.sorting.ascending = true;
-                    }
-                    this.syncServer();
-                },
-                changePage: function(page) {
-                    this.pagination.currentPage = page;
-                    this.syncServer();
-                }
-            },
-            computed: {
-                columns: function() {
-                    if (this.rows.length === 0) {
-                        return [];
-                    }
-                    var firstRow = this.rows[0];
-                    var columns = Object.keys(firstRow);
-                    return columns;
-                }
+            changePage: function(page) {
+                this.pagination.currentPage = page;
+                this.syncServer();
             }
-        });
-    </script>
+        },
+        computed: {
+            columns: function() {
+                if (this.rows.length === 0) {
+                    return [];
+                }
+                var firstRow = this.rows[0];
+                var columns = Object.keys(firstRow);
+                return columns.filter(x => x !== "id");
+            }
+        }
+    });
+</script>
+
+<hr class="mt-5 mb-5"/>
+
+<div id="elastic-table" class="row mt-5">
+    <div class="col-12 mb-2">
+        <h4 class="float-left">Elastic Search</h4>
+        <button class="float-right btn btn-outline-secondary" v-bind:disabled="updating" v-on:click="updateIndexes()">
+            {{ updating ? "Loading..." : "Update indexes" }}
+        </button>
+    </div>
+    <div class="col-12">
+        <div class="input-group mb-1">
+            <input type="text" 
+                   class="form-control" 
+                   v-model="searchText" 
+                   placeholder="Search terms" 
+                   aria-label="Search terms" 
+                   aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" v-on:click="syncServer()">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" v-for="col in columns" v-on:click="sortByColumn(col)" class="mouse-pointer text-uppercase">
+                    {{col}}
+                    <div class="arrow"
+                         v-if="col == sorting.columnName"
+                         v-bind:class="[sorting.ascending ? 'asc' : 'dsc']">
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="row in rows">
+                <td v-for="col in columns" v-bind:scope="col == 'id' ? 'row' : null">
+                    {{row[col].length > 16 ? row[col].substring(0, 13).trim() + '...' : row[col]}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <button
+                class="btn btn-light m-1"
+                v-for="i in count"
+                v-bind:class="[i == pagination.currentPage ? 'active' : '']"
+                v-on:click="changePage(i)">
+                {{i}}
+            </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <pre>{{ queryText }}</pre>
+    </div>
 </div>
+<script>
+    new Vue({
+        el: '#elastic-table',
+        data: {
+            pagination: {
+                currentPage: 1,
+                pageSize: 5
+            },
+            sorting: {
+                ascending: true,
+                columnName: 'id'
+            },
+            updating: false,
+            searchText: '',
+            filterText: '',
+            rows: [],    
+            count: 0
+        },
+        mounted: function() {
+            this.syncServer();
+        },
+        methods: {
+            updateIndexes: function() {
+                this.updating = true;
+                this.$http.put('/api/elastic/vehicles').then(response => {
+                    this.updating = false;
+                });
+            },
+            syncServer: function() {
+                var url = [
+                    '/api/elastic/vehicles?',
+                    'page=', this.pagination.currentPage,
+                    '&size=', this.pagination.pageSize,
+                    '&column=', this.sorting.columnName,
+                    '&orientation=', this.sorting.ascending ? 'asc' : 'desc',
+                    '&search=', encodeURIComponent(this.searchText),
+                    '&filter=', encodeURIComponent(this.filterText)
+                ].join('');
+                this.$http.get(url).then(response => {
+                    this.rows = response.body.pageRows;
+                    this.count = response.body.totalPages;
+                    this.queryText = response.body.queryText;
+                });
+            },
+            sortByColumn: function(columName) {
+                if (this.sorting.columnName === columName) {
+                    this.sorting.ascending = !this.sorting.ascending;
+                } else {
+                    this.sorting.columnName = columName;
+                    this.sorting.ascending = true;
+                }
+                this.syncServer();
+            },
+            changePage: function(page) {
+                this.pagination.currentPage = page;
+                this.syncServer();
+            }
+        },
+        computed: {
+            columns: function() {
+                if (this.rows.length === 0) {
+                    return [];
+                }
+                var firstRow = this.rows[0];
+                var columns = Object.keys(firstRow);
+                return columns.filter(x => x !== "id");
+            }
+        }
+    });
+</script>

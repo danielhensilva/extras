@@ -22,3 +22,7 @@
 .mouse-pointer {
     cursor: pointer;
 }
+
+.body-content {
+    height: 3000px;
+}
