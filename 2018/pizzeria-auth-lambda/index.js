@@ -1,9 +1,10 @@
 const serverless = require("serverless-http");
 const bodyParser = require("body-parser");
 const express = require("express");
-const awsCognitoIdentity = require("amazon-cognito-identity-js");
-const validator = require("./app/validators");
-const credentials = require("./app/credentials");
+const aws = require("aws-sdk");
+
+const validator = require("./app/common/validators");
+const credentials = require("./app/security/credentials");
 
 const app = express();
 app.use(bodyParser.json({strict: false}));
@@ -17,27 +18,25 @@ app.post('/users', (req, res) => {
 
   const errors = validator.createUser(email, name, password);
   if (errors.length) {
-    res.status(400).json({error: errors});
+    res.status(400).json(errors);
     return;
   }
 
-  const userPool = new awsCognitoIdentity.CognitoUserPool({
-    UserPoolId: credentials.AWS.Cognito.UserPoolId,
-    ClientId: credentials.AWS.Cognito.ClientId,
+  const createUserParams = {
+    
+  };
+
+  const provider = new aws.CognitoIdentityServiceProvider({
   });
 
-  const userAttributes = new awsCognitoIdentity.CognitoUserAttribute({
-    Name: name,
-    Email: email
-  });
+  provider.adminCreateUser(createUserParams, createUserCallback);
+  
+  function createUserCallback() {
 
-  userPool.signUp(email, password, [userAttributes], null, (error, result) => {
-    if (error) {
-      res.status(400).json({error});
-    }
+  }
 
-    res.status(200).json(`user "${result.user.getUsername()}" created`);
-  });
 });
 
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
+
+app.listen(3000, () => console.log('Example app listening on port 3000'));
