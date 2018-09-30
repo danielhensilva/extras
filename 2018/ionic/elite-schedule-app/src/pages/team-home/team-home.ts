@@ -20,4 +20,7 @@ export class TeamHomePage {
     console.log('ionViewDidLoad TeamHomePage');
   }
 
+  goHome() {
+    this.navCtrl.popToRoot();
+  }
 }

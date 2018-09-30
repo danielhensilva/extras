@@ -10,7 +10,7 @@ import { TournamentsPage } from "../pages/tournaments/tournaments";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild(Nav) navCtrl: Nav;
 
   rootPage: any = MyTeamsPage;
 
@@ -22,7 +22,7 @@ export class MyApp {
     this.initializeApp();
 
     this.routes = [
-      { text: 'Home', page: MyTeamsPage },
+      { text: 'Home', page: this.rootPage },
       { text: 'Find a tournament', page: TournamentsPage }
     ]
   }
@@ -37,6 +37,10 @@ export class MyApp {
   }
 
   openPage(page) {
-    this.nav.push(page);
+    if (page === this.rootPage) {
+      this.navCtrl.popToRoot();
+      return;
+    }
+    this.navCtrl.push(page)
   }
 }
