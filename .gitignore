@@ -1,3 +1,4 @@
 bin/
 obj/
 [pP]ackages/
+node_modules/
