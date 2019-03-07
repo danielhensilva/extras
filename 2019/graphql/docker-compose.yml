@@ -12,9 +12,11 @@ services:
       MYSQL_DATABASE: core
       MYSQL_ROOT_PASSWORD: p4ssword
 
-  #web:
-  #  build: .
-  #  ports:
-  #    - "8000:8000"
-  #  links:
-  #    - database
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    links:
+      - database
+    depends_on:
+      - database

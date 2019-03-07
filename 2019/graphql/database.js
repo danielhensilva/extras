@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:p4ssword@localhost:3306/core', {
+const sequelize = new Sequelize('mysql://root:p4ssword@database/core', {
   dialect: 'mysql'
 });
 
@@ -64,3 +64,4 @@ exports.Vehicle = sequelize.define('vehicle', {
   description: Sequelize.STRING,
   vin: Sequelize.STRING,
 }, tableSettings);
+

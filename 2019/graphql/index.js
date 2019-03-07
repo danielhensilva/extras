@@ -9,8 +9,8 @@ const typeDefs = gql`
     accountId: Int
     description: String
     drivers(offset: Int, limit: Int): [Driver]
-    users(offset: Int, limit: Int): [User]
     vehicles(offset: Int, limit: Int): [Vehicle]
+    users(offset: Int, limit: Int): [User]
   }
   type Driver {
     driverId: Int
