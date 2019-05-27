@@ -1,0 +1,29 @@
+service: serverless-my-api
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: eu-west-1
+  memorySize: 128
+
+functions:
+  my-demo-function:
+    handler: handler.router
+    events:
+      - http:
+          method: get
+          path: items
+      - http:
+          method: get
+          path: items/{id}
+      - http:
+          method: post
+          path: items
+      - http:
+          method: put
+          path: items/{id}
+      - http:
+          method: delete
+          path: items/{id}
+

@@ -1,0 +1,18 @@
+{
+  "name": "serverless-presentation",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "handler.js",
+  "scripts": {
+    "start": "node handler.js",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove",
+    "invoke-local": "serverless invoke local --function my-demo-function"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serverless": "^1.43.0"
+  }
+}
