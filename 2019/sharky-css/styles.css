@@ -66,6 +66,36 @@ figure {
   color: #0072ae;
   font-weight: bold;
 }
+.secondary-section figure {
+  padding: 6px;
+}
+.secondary-section figure img {
+  transition: .15s all ease-in-out;
+}
+.secondary-section figure:hover img {
+  transform: rotate(+9deg) scale(1.15, 1.15);
+}
 .tertiary-section {
   clear: both;
+}
+.button {
+  border: 2px solid #444;
+  color: #444;
+  padding: 12px 0;
+  display: block;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1.3px;
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: .15s all ease-in-out;
+  transform: scale(.9, .9);
+}
+.button:hover,
+.button:focus {
+  color: #fff;
+  background-color: #333;
+  transform: scale(1.1, 1.1) translate(0, -5px);
 }
