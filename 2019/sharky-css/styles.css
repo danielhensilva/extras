@@ -27,10 +27,16 @@ figure {
   clear: both;
 }
 /*
+  What is the issue?
+  Any element containing only floatting children,
+  gets its height collapsed to nothing.
+
+  Solution:
+  clearfix::after class above.
+
   Alternative solutions:
-  1. Add overflow: hidden; -> cuts off contents
+  1. Add overflow: hidden; -> cuts contents
   2. Add float: left/right; -> affects position
-  # By far, clearfix hack has no side effects
 */
 
 .wrapper {
