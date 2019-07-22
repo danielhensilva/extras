@@ -99,3 +99,32 @@ figure {
   background-color: #333;
   transform: scale(1.1, 1.1) translate(0, -5px);
 }
+
+.intro-content {
+  font-size: 32px;
+  width: 360px;
+  margin-right: 60px;
+  float: left;
+}
+.go-premium {
+  width: 300px;
+  float: left;
+  margin-top: 125px;
+}
+.call-to-action {
+  border: 2px solid #fff;
+  color: #fff;
+  background-color: #0072ae;
+  padding: 25px 0;
+  display: block;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  transition: all .25s ease-in-out;
+}
+.call-to-action:hover {
+  border-color: #0072ae;
+  color: #0072ae;
+  background: none;
+}
