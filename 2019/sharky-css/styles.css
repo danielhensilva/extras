@@ -44,21 +44,6 @@ figure {
   max-width: 960px;
 }
 
-.columns {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.column {
-  flex-basis: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-.column .button {
-  margin-top: auto;
-}
-
 .alt-headline {
   font-size: 40px;
 }
@@ -163,4 +148,34 @@ ul {
   transform: scale(1);
   width: 130px;
   margin-left: auto;
+}
+
+.featured {
+  box-sizing: content-box;
+}
+.featured .ribbon {
+  background: #f999;
+  padding: 10px;
+  font-size: 1.3em;
+  font-family: arial;
+  margin-bottom: 20px;
+  box-shadow: #eee 0 4px 4px;
+}
+.featured p,
+.featured .column-title {
+  padding: 0 20px;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.column {
+  flex-basis: 30%;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
 }
