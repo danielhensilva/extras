@@ -6,7 +6,7 @@ relationship_spouse_name = 'Wilma Flinstone'
 
 work_employer = 'Slate Rock and Gravel'
 work_occupation = 'Bronto Crane Operator'
-work_income = '36000.0'
+work_monthly_income = 3000
 
 print('Name:', name)
 print('Location:', location)
@@ -16,4 +16,4 @@ print('--- Spouse:', relationship_spouse_name)
 print('')
 print('Employed by:', work_employer)
 print('--- Occupation:', work_occupation)
-print('--- Income:', work_income)
+print('--- Income:', work_monthly_income * 12)
