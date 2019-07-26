@@ -3,10 +3,10 @@ name = 'Chuck Black'
 account_no = '01123456789'
 charges = list(open('m02_02_charges_file.txt'))
 
-print('name:', name, '\taccount:', account_no)
+print('name:', name.strip(), '\taccount:', account_no)
 print('--- balance:', '$' + str(float(balance)))
 
 for i in range(len(charges)):
     charge = float(charges[i])
     balance -= charge
-    print(f'* {i:02} (-{charge}) - balance: ${float(balance):.2f}')
+    print(f'* bill {i:2} is charging {charge:5,.2f} => balance: $ {float(balance):.2f}')
