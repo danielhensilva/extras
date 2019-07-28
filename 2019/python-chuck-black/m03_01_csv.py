@@ -15,4 +15,4 @@ for file_entry in file_entries:
 
 
 for bill in bills:
-    print(bill)
+    print(f'{bill["id"]:2} {bill["last_name"]:20}')
