@@ -26,12 +26,10 @@ print('\n\nUnsorted:')
 print_table(table)
 
 print('\n\nSorted by employer:')
-table.sort(key=itemgetter('employer'))
-print_table(table)
+print_table(sorted(table, key=itemgetter('employer')))
 
 print('\n\nSorted by name:')
-table.sort(key=itemgetter('name'))
-print_table(table)
+print_table(sorted(table, key=itemgetter('name')))
 
 while True:
     print('\n\n')
@@ -50,4 +48,4 @@ while True:
         print('Nothing found')
         continue
 
-    print_table(matches)
+    print_table(sorted(matches, key=itemgetter('name')))
