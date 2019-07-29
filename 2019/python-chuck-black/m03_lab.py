@@ -1,3 +1,6 @@
+from operator import itemgetter
+
+
 def print_table(table):
     print('=' * 110)
     print(f'{"Name":20} {"Location":20} {"Status":15} {"Employer":20} {"Job":30}')
@@ -23,11 +26,11 @@ print('\n\nUnsorted:')
 print_table(table)
 
 print('\n\nSorted by employer:')
-table.sort(key=lambda x: x['employer'])
+table.sort(key=itemgetter('employer'))
 print_table(table)
 
 print('\n\nSorted by name:')
-table.sort(key=lambda x: x['name'])
+table.sort(key=itemgetter('name'))
 print_table(table)
 
 while True:
