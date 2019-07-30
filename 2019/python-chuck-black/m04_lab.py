@@ -1,19 +1,19 @@
 from operator import itemgetter
 
 
-def print_colums(name, location, status, employer, job):
+def print_columns(name, location, status, employer, job):
     print(f'{name:18}{location:18}{status:15}{employer:20}{job:28}')
 
 
 def print_table(table):
     print('=' * 100)
-    print_colums('Name', 'Location', 'Status', 'Employer', 'Job')
+    print_columns('Name', 'Location', 'Status', 'Employer', 'Job')
     print('-' * 100)
     for row in table:
-        print_colums(row["name"], row["location"], row["status"], row["employer"], row["job"])
+        print_columns(row["name"], row["location"], row["status"], row["employer"], row["job"])
 
 
-def print_table_with_title(title, table, sort_key = ''):
+def print_table_with_title(title, table, sort_key=''):
     print('\n\n' + title)
     if len(sort_key) == 0:
         print_table(table)
