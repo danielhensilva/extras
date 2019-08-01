@@ -24,12 +24,7 @@ def never_doubled_letters():
 def longest_palindromes():
     longest = ''
     for word in words:
-        is_palindrome = True
-        for i in range(len(word)):
-            if word[i] != word[-1-i]:
-                is_palindrome = False
-                break
-        if is_palindrome and len(word) > len(longest):
+        if word == word[::-1] and len(word) > len(longest):
             longest = word
     return longest
 
