@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Shopping List</title>
+</head>
+<body>
+<h1>Shopping List</h1>
+
+    <ul>
+        {% for item in items %}
+        <li data-value="{{ item }}">
+            {{ item }}
+            <small>
+                <a href="#" onclick="remove('{{item}}')"}>[Remove]</a>
+            </small>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST">
+        <input type="text" name="item">
+        <input type="submit" name="Add to list">
+    </form>
+
+    <script>
+    function remove(item) {
+        console.log("/api/" + item);
+        const xhr1 = new XMLHttpRequest();
+        xhr1.open('DELETE', "/api/" + item, true);
+        xhr1.onreadystatechange = function() {
+            document.location.reload();
+        };
+        xhr1.send();
+    }
+    </script>
+
+</body>
+</html>
