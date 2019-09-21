@@ -1,12 +1,17 @@
 package controllers;
 
+import models.Product;
+import models.ProductsService;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import java.util.List;
 
 public class Products extends Controller {
 
     public Result list() {
-        return TODO;
+        List<Product> products = new ProductsService().findAll();
+        return ok(views.html.products.list.render(products));
     }
 
     public Result create() {
@@ -17,7 +22,7 @@ public class Products extends Controller {
         return TODO;
     }
 
-    public Result update() {
+    public Result save() {
         return TODO;
     }
 
