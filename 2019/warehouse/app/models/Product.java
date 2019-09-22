@@ -1,14 +1,16 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import play.data.validation.Constraints;
 
 public class Product {
 
-    public String ean;
-    public String name;
-    public String description;
+    @Constraints.Required
+    private String ean;
+
+    @Constraints.Required
+    private String name;
+
+    private String description;
 
     public Product() {
     }
@@ -23,4 +25,27 @@ public class Product {
         return String.format("%s - %s", ean, name);
     }
 
+    public String getEan() {
+        return ean;
+    }
+
+    public void setEan(String ean) {
+        this.ean = ean;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

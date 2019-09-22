@@ -13,10 +13,11 @@ public class ProductsService {
     static {
         products = new ArrayList<>();
         products.add(new Product("1111111111111", "Paperclips 1", "Paperclips description 1"));
-        products.add(new Product("2222222222222", "Paperclips 2", "Paperclips description "));
+        products.add(new Product("2222222222222", "Paperclips 2", "Paperclips description 2"));
         products.add(new Product("3333333333333", "Paperclips 3", "Paperclips description 3"));
         products.add(new Product("4444444444444", "Paperclips 4", "Paperclips description 4"));
         products.add(new Product("5555555555555", "Paperclips 5", "Paperclips description 5"));
+        System.out.println(products);
     }
 
     public List<Product> findAll() {
@@ -40,7 +41,7 @@ public class ProductsService {
     }
 
     public void save(Product product) {
-        findByEan(product.ean)
+        findByEan(product.getEan())
                 .ifPresent(p -> products.remove(p));
         products.add(product);
     }
@@ -48,11 +49,11 @@ public class ProductsService {
     private static class Predicates {
 
         private static Predicate<Product> byEan(String ean) {
-            return p -> p.ean.equals(ean);
+            return p -> p.getEan().equals(ean);
         }
 
         private static Predicate<Product> byName(String name) {
-            return p -> p.name.toLowerCase().contains(name.toLowerCase());
+            return p -> p.getName().toLowerCase().contains(name.toLowerCase());
         }
 
     }

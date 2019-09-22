@@ -1,7 +1,10 @@
 @(message: String)
 
 @main("Welcome to Play") {
-
-    @play20.welcome(message, style = "Java")
-
+    <h1>Menu</h1>
+    <ul>
+        <ol>
+            <a href="@routes.ProductsController.list()">Products</a>
+        </ol>
+    </ul>
 }

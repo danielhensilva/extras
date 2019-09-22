@@ -8,8 +8,19 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <link href="https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" integrity="sha384-4FeI0trTH/PCsLWrGCD1mScoFu9Jf2NdknFdFoJhXZFwsvzZ3Bo5sAh7+zL8Xgnd" crossorigin="anonymous">
     </head>
     <body>
+        @if(flash.containsKey("success")) {
+            <div class="alert alert-success">
+                @flash.get("success")
+            </div>
+        }
+        @if(flash.containsKey("error")) {
+            <div class="alert alert-error">
+                @flash.get("error")
+            </div>
+        }
         @content
     </body>
 </html>

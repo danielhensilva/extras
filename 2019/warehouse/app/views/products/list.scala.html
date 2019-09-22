@@ -4,6 +4,8 @@
 
     <h2>All products</h2>
 
+    <a href="@routes.ProductsController.create()">Create new</a>
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -16,18 +18,18 @@
         @for(product <- products) {
             <tr>
                 <td>
-                    <a href="@routes.Products.details(product.ean)">
-                        @product.ean
+                    <a href="@routes.ProductsController.details(product.getEan())">
+                        @product.getEan()
                     </a>
                 </td>
                 <td>
-                    <a href="@routes.Products.details(product.ean)">
-                        @product.name
+                    <a href="@routes.ProductsController.details(product.getEan())">
+                        @product.getName()
                     </a>
                 </td>
                 <td>
-                    <a href="@routes.Products.details(product.ean)">
-                        @product.name
+                    <a href="@routes.ProductsController.details(product.getEan())">
+                        @product.getDescription()
                     </a>
                 </td>
             </tr>
