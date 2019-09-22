@@ -4,7 +4,17 @@
 
     <h2>All products</h2>
 
-    <a href="@routes.ProductsController.create()">Create new</a>
+    <script>
+    function remove(target) {
+        $.ajax({
+            url: target,
+            type: 'DELETE',
+            success: function() {
+                location.reload()
+            }
+        });
+    }
+    </script>
 
     <table class="table table-striped">
         <thead>
@@ -12,28 +22,29 @@
                 <th>EAN</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
         @for(product <- products) {
             <tr>
+                <td>@product.getEan()</td>
+                <td>@product.getName()</td>
+                <td>@product.getDescription()</td>
                 <td>
                     <a href="@routes.ProductsController.details(product.getEan())">
-                        @product.getEan()
+                        <i class="icon icon-pencil"></i>
                     </a>
-                </td>
-                <td>
-                    <a href="@routes.ProductsController.details(product.getEan())">
-                        @product.getName()
-                    </a>
-                </td>
-                <td>
-                    <a href="@routes.ProductsController.details(product.getEan())">
-                        @product.getDescription()
+                    <a href="#" onclick="remove('@routes.ProductsController.delete(product.getEan())')">
+                        <i class="icon icon-trash"></i>
                     </a>
                 </td>
             </tr>
         }
         </tbody>
     </table>
+
+    <a href="@routes.ProductsController.create()" class="btn">
+        <i class="icon-plus"></i> Create new
+    </a>
 }

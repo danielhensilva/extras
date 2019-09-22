@@ -68,4 +68,15 @@ public class ProductsController extends Controller {
         return redirect(routes.ProductsController.list());
     }
 
+    public Result delete(String ean) {
+        final Optional<Product> product = this.productsService.findByEan(ean);
+
+        if (product.isPresent()) {
+            this.productsService.remove(product.get());
+            return redirect(routes.ProductsController.list());
+        }
+
+        return notFound("Product " + ean + " does not exist");
+    }
+
 }
