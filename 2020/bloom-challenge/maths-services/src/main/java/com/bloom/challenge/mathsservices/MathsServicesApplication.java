@@ -20,7 +20,7 @@ public class MathsServicesApplication {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("Room").select()
+        return new Docket(DocumentationType.SWAGGER_2).groupName("Maths").select()
             .apis(RequestHandlerSelectors.basePackage("com.bloom.challenge.mathsservices"))
             .paths(any()).build().apiInfo(new ApiInfo(
                 "Maths Services", "Microservice for math calculations", "1.0.0", null,
