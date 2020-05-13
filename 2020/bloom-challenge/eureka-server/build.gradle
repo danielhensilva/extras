@@ -12,6 +12,12 @@ repositories {
     mavenCentral()
 }
 
+bootJar {
+    baseName = 'eureka-server'
+    version =  '1.0.0'
+}
+
+
 ext {
     set('springCloudVersion', "Hoxton.SR4")
 }

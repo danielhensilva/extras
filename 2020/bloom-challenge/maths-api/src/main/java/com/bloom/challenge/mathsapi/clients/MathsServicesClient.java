@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.concurrent.CompletableFuture;
 
-@FeignClient(value = "Maths-Services", fallback = MathsServicesFallbackImpl.class)
+@FeignClient(value = "Maths-Service", fallback = MathsServicesFallbackImpl.class)
 public interface MathsServicesClient {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/operations/sum", produces = "application/json")

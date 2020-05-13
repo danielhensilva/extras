@@ -16,7 +16,7 @@ import static springfox.documentation.builders.PathSelectors.any;
 @EnableSwagger2
 @EnableDiscoveryClient
 @SpringBootApplication
-public class MathsServicesApplication {
+public class MathsServiceApplication {
 
     @Bean
     public Docket api() {
@@ -28,7 +28,7 @@ public class MathsServicesApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(MathsServicesApplication.class, args);
+        SpringApplication.run(MathsServiceApplication.class, args);
     }
 
 }

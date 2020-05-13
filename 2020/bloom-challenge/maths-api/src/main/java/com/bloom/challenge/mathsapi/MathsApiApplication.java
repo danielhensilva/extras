@@ -1,6 +1,5 @@
 package com.bloom.challenge.mathsapi;
 
-import com.bloom.challenge.mathsapi.clients.MathsServicesFallbackImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
