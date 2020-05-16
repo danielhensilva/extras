@@ -15,7 +15,7 @@ public class OperationsController {
     @ApiOperation(value="Sum two values")
     public ResponseEntity<Integer> sum(
             @RequestParam(name="a") @ApiParam(value="First number") int a,
-            @RequestParam(name="b") @ApiParam(value="Second number")  int b) {
+            @RequestParam(name="b") @ApiParam(value="Second number") int b) {
         return ResponseEntity.ok(a + b);
     }
 
