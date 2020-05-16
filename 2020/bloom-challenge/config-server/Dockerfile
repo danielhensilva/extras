@@ -4,12 +4,12 @@ WORKDIR /app
 
 # Copy source and generate the jar file
 COPY . ./
-RUN gradle build --no-daemon
+RUN gradle build --no-daemon -x test
 
 # Build runtime image
 FROM openjdk:14-jdk-alpine
 RUN apk --no-cache add curl
-EXPOSE 9000
+EXPOSE 8888
 
 # Copy the jar and get it ready for execution
 COPY --from=build-env /app/build/libs/*.jar app.jar

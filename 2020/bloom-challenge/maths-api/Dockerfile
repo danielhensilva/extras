@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy source and generate the jar file
 COPY . ./
-RUN gradle build --no-daemon
+RUN gradle build --no-daemon -x test
 
 # Build runtime image
 FROM openjdk:14-jdk-alpine

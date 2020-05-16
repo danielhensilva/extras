@@ -1,6 +1,7 @@
 package com.bloom.challenge.mathsapi.clients;
 
 import com.bloom.challenge.mathsapi.models.Mathematician;
+import com.bloom.challenge.mathsapi.models.PagedMathematicians;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -19,8 +20,8 @@ public class MathsServiceFallbackImpl implements MathsServiceClient {
     }
 
     @Override
-    public CompletableFuture<List<Mathematician>> get(int pageNumber, int pageSize) {
-        return CompletableFuture.completedFuture(Collections.emptyList());
+    public CompletableFuture<PagedMathematicians> getAllMathematicians(int pageNumber, int pageSize) {
+        return CompletableFuture.completedFuture(new PagedMathematicians());
     }
 
 }

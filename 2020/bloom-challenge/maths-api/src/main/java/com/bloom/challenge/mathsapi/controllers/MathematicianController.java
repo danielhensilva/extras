@@ -28,9 +28,9 @@ public class MathematicianController {
     @GetMapping()
     @ApiOperation(value="Retrieves top 10 mathematicians by name")
     public CompletableFuture<ResponseEntity<Object>> getTop10MathematiciansByName() {
-        return client.get(0, 10)
+        return client.getAllMathematicians(0, 10)
                 .thenApply(mathematicians ->  mathematicians
-                    .stream()
+                    .getContent().stream()
                     .map(Mathematician::getName)
                     .collect(Collectors.toList()))
                 .thenApply(ResponseEntity::ok);
