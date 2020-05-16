@@ -65,7 +65,7 @@ public class MathematiciansControllerIntegrationTests {
     }
 
     @Test
-    public void shouldThrownValidationExceptionWhenPageNumberIsZeroAndPageSizeIsOne() {
+    public void shouldReturnFirstMathematicianWhenPageNumberIsZeroAndPageSizeIsOne() {
         // Arrange
         int pageNumber = 0;
         int pageSize = 1;
@@ -86,6 +86,32 @@ public class MathematiciansControllerIntegrationTests {
         var mathematicians = mathematicianPage.get().collect(Collectors.toList());
         assertThat(mathematicians).hasSize(1);
         assertThat(mathematicians.get(0).getName()).isEqualTo("Carl Gauss");
+    }
+
+    @Test
+    public void shouldReturnAllMathematiciansWhenPageNumberIsZeroAndPageSizeIs100() {
+        // Arrange
+        int pageNumber = 0;
+        int pageSize = 100;
+
+        // Act
+        var response = mathematiciansController
+                .getPagedMathematicians(pageNumber, pageSize);
+
+        // Assert
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isInstanceOf(Page.class);
+
+        var mathematicianPage = (Page<Mathematician>) response.getBody();
+        assertThat(mathematicianPage.getTotalElements()).isEqualTo(3);
+        assertThat(mathematicianPage.getTotalPages()).isEqualTo(1);
+
+        var mathematicians = mathematicianPage.get().collect(Collectors.toList());
+        assertThat(mathematicians).hasSize(3);
+        assertThat(mathematicians.get(0).getName()).isEqualTo("Carl Gauss");
+        assertThat(mathematicians.get(1).getName()).isEqualTo("Euclid");
+        assertThat(mathematicians.get(2).getName()).isEqualTo("Isaac Newton");
     }
 
 }

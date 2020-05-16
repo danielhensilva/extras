@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(value="operations")
 public class OperationsController {
 
-    @PutMapping("/sum")
+    @GetMapping("/sum")
     @ApiOperation(value="Sum two values")
     public ResponseEntity<Integer> sum(
             @RequestParam(name="a") @ApiParam(value="First number") int a,

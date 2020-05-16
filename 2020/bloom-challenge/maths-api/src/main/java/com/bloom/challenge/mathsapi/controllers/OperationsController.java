@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class OperationsController {
         this.client = client;
     }
 
-    @PutMapping("/sum")
+    @GetMapping("/sum")
     @ApiOperation(value="Sum two values")
     public CompletableFuture<ResponseEntity<Integer>> sum(
             @RequestParam(name="a") @ApiParam(value="First number") int a,

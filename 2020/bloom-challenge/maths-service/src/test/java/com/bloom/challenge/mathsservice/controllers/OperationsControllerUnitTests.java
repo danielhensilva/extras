@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OperationsController.class)
@@ -23,7 +23,7 @@ public class OperationsControllerUnitTests {
     @Test
     public void shouldReturnTheSumOfTwoNumbers() throws Exception {
         MvcResult result = mockMvc
-                .perform(put("/operations/sum?a=4&b=9"))
+                .perform(get("/operations/sum?a=4&b=9"))
                 .andExpect(status().isOk())
                 .andReturn();
 

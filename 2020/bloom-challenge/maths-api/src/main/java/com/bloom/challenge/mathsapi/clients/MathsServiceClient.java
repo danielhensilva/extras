@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 @FeignClient(value = "Maths-Service", fallback = MathsServiceFallbackImpl.class)
 public interface MathsServiceClient {
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/operations/sum", produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/operations/sum", produces = "application/json")
     CompletableFuture<Integer> sum(
             @RequestParam(name = "a", required = true) int a,
             @RequestParam(name = "b", required = true) int b);
