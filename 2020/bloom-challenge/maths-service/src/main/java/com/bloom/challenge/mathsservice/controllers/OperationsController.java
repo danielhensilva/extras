@@ -1,4 +1,4 @@
-package com.bloom.challenge.mathsservices.controllers;
+package com.bloom.challenge.mathsservice.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

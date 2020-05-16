@@ -8,6 +8,7 @@ RUN gradle build --no-daemon
 
 # Build runtime image
 FROM openjdk:14-jdk-alpine
+RUN apk --no-cache add curl
 EXPOSE 8761
 
 # Copy the jar and get it ready for execution

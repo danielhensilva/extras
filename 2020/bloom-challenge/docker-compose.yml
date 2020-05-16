@@ -1,0 +1,75 @@
+version: "2.1"
+services:
+
+  service-db:
+    image: postgres:12-alpine
+    network_mode: "host"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "service-db"
+      POSTGRES_USER: "app"
+      POSTGRES_PASSWORD: "p4ssw0rd"
+
+  eureka:
+    build: ./eureka-server
+    container_name: eureka-server
+    network_mode: "host"
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  config:
+    build: ./config-server
+    container_name: config-server
+    network_mode: "host"
+    depends_on:
+      eureka:
+        condition: service_healthy
+    ports:
+      - "9000:9000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/actuator/health"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  service:
+    build: ./maths-service
+    container_name: maths-service
+    network_mode: "host"
+    depends_on:
+      eureka:
+          condition: service_healthy
+      config:
+          condition: service_healthy
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: ./maths-api
+    container_name: maths-api
+    network_mode: "host"
+    depends_on:
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+      service:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 3s
+      timeout: 3s
+      retries: 5

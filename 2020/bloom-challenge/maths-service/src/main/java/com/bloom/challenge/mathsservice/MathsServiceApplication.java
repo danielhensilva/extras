@@ -1,4 +1,4 @@
-package com.bloom.challenge.mathsservices;
+package com.bloom.challenge.mathsservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +21,7 @@ public class MathsServiceApplication {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).groupName("Maths").select()
-            .apis(RequestHandlerSelectors.basePackage("com.bloom.challenge.mathsservices"))
+            .apis(RequestHandlerSelectors.basePackage("com.bloom.challenge.mathsservice"))
             .paths(any()).build().apiInfo(new ApiInfo(
                 "Maths Services", "Microservice for math calculations", "1.0.0", null,
                 new Contact("Daniel H da Silva", "https://github.com/danielhensilva", null), null, null));

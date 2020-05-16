@@ -1,4 +1,4 @@
-package com.bloom.challenge.mathsservices;
+package com.bloom.challenge.mathsservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
