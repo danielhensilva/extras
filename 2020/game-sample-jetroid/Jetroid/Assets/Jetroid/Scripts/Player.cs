@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     public Vector2 maxVelocity = new Vector2(60, 100);
     public float jetSpeed = 200.0f;
     public bool standing = false;
-    public float standingThreshold = 4.0f;
+    public float standingThreshold = 0.1f;
     public float airSpeedMultiplier = 0.3f;
 
     private Rigidbody2D body2D;
