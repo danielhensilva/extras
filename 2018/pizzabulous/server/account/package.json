@@ -12,7 +12,7 @@
   "dependencies": {
     "@types/sequelize": "^4.27.24",
     "bcrypt": "^3.0.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.3.0",
     "mysql2": "^1.6.1",
     "sequelize": "^5.15.1"
