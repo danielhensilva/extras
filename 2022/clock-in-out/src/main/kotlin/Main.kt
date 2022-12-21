@@ -2,60 +2,44 @@ import java.time.*
 import java.util.*
 
 private class ShiftTime {
-    var startTime: LocalDateTime = LocalDateTime.now()
+    var startTime = LocalDateTime.now()
     var endTime: LocalDateTime? = null
 }
 
-private class LaborService(
-    private val map: MutableMap<Int, Stack<ShiftTime>> = HashMap<Int, Stack<ShiftTime>>(),
-    private val clockedIn: MutableSet<Int> = HashSet<Int>(),
-) {
-    fun clockIn(employeeId: Int) {
-        var shiftTimes = map[employeeId]
+private class LaborData {
+    private val map = HashMap<Int, Stack<ShiftTime>>()
 
-        if (shiftTimes == null) {
-            shiftTimes = Stack<ShiftTime>()
-            map[employeeId] = shiftTimes
-        }
-
-        // First time adding a time shift for employee
-        if (shiftTimes.isEmpty()) {
-            shiftTimes.push(ShiftTime())
-            clockedIn.add(employeeId)
-            return
-        }
-
-        // Check if last time shift has been closed already
-        if (shiftTimes.peek().endTime != null) {
-            shiftTimes.push(ShiftTime())
-            clockedIn.add(employeeId)
-            return
-        }
-
-        throw UnsupportedOperationException("Cannot clock-in again without clock-out the previous one")
+    fun getAllEmployeeIds(): Set<Int> {
+        return map.keys
     }
 
-    fun clockOut(employeeId: Int) {
-        val shiftTimes = map[employeeId]
-
-        if (shiftTimes.isNullOrEmpty()) {
-            throw UnsupportedOperationException("Cannot clock-out as this employee is not registered")
-        }
-
-        val lastShiftTime = shiftTimes.peek()
-        if (lastShiftTime.endTime != null) {
-            throw UnsupportedOperationException("Cannot clock-out as this employee does not have an open clock-in")
-        }
-
-        lastShiftTime.endTime = LocalDateTime.now()
-        clockedIn.remove(employeeId)
+    fun getAllShiftsByEmployee(employeeId: Int): Stack<ShiftTime> {
+        return map[employeeId] ?: Stack<ShiftTime>()
     }
 
-    fun getListOfCurrentlyClockedInEmployees(): Array<Int> {
-        return clockedIn.toTypedArray()
+    fun getLastShiftByEmployee(employeeId: Int): ShiftTime? {
+        val shiftTimes = getAllShiftsByEmployee(employeeId)
+        return if (shiftTimes.isEmpty()) {
+            null
+        } else {
+            shiftTimes.peek()
+        }
     }
 
-    fun calculateWorkedHours(employeeId: Int) {
+    fun isEmployeeClockedIn(employeeId: Int): Boolean {
+        val lastShiftTime = getLastShiftByEmployee(employeeId)
+        return if (lastShiftTime == null) {
+            false
+        } else {
+            lastShiftTime.endTime == null
+        }
+    }
+
+    fun pushNewShift(employeeId: Int) {
+        if (map[employeeId] == null) {
+            map[employeeId] = Stack<ShiftTime>()
+        }
+        map[employeeId]!!.add(ShiftTime())
     }
 
     override fun toString(): String {
@@ -63,7 +47,7 @@ private class LaborService(
 
         for (item in map.entries) {
             builder.appendLine("Employee #${item.key}")
-            builder.appendLine("\tIsClockedIn=${clockedIn.contains(item.key)}")
+            builder.appendLine("\tIsClockedIn=${isEmployeeClockedIn(item.key)}")
 
             for (shift in item.value) {
                 builder.appendLine("\tClockInAt=${shift.startTime} - ClockOutAt=${shift.endTime}")
@@ -71,6 +55,51 @@ private class LaborService(
         }
 
         return builder.toString()
+    }
+}
+
+private class LaborService {
+    private val data = LaborData()
+
+    fun clockIn(employeeId: Int) {
+        val lastShift = data.getLastShiftByEmployee(employeeId)
+
+        if (lastShift == null) {
+            data.pushNewShift(employeeId)
+            return
+        }
+
+        // Check if last time shift is still open
+        if (lastShift.endTime == null) {
+            throw UnsupportedOperationException("Cannot clock-in again without clock-out the previous one")
+        }
+
+        data.pushNewShift(employeeId)
+    }
+
+    fun clockOut(employeeId: Int) {
+        val lastShift = data.getLastShiftByEmployee(employeeId)
+            ?: throw UnsupportedOperationException("Cannot clock-out as this employee is not registered")
+
+        if (lastShift.endTime != null) {
+            throw UnsupportedOperationException("Cannot clock-out as this employee does not have an open clock-in")
+        }
+
+        lastShift.endTime = LocalDateTime.now()
+    }
+
+    fun getListOfCurrentlyClockedInEmployees(): Array<Int> {
+        return data
+            .getAllEmployeeIds()
+            .filter { data.isEmployeeClockedIn(it) }
+            .toTypedArray()
+    }
+
+    fun calculateWorkedHours(employeeId: Int) {
+    }
+
+    override fun toString(): String {
+        return data.toString()
     }
 }
 
