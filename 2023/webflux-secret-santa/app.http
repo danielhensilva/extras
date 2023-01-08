@@ -1,0 +1,40 @@
+### GET health check
+GET http://localhost:8080/
+Accept: application/json
+
+
+### GET all participants
+GET http://localhost:8080/participants
+Accept: application/json
+
+
+### Send POST request with json body
+POST http://localhost:8080/participants
+Content-Type: application/json
+
+{
+  "name": "Alice"
+}
+
+
+### Send POST request with json body
+POST http://localhost:8080/participants
+Content-Type: application/json
+
+{
+  "name": "Bob"
+}
+
+
+### Send POST request with json body
+POST http://localhost:8080/participants
+Content-Type: application/json
+
+{
+  "name": "Charlie"
+}
+
+
+### Send POST request with json body
+POST http://localhost:8080/participants/draw
+Content-Type: application/json
