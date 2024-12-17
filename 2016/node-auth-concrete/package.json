@@ -17,7 +17,7 @@
     "jasmine": "^2.5.0",
     "jsonwebtoken": "^7.1.9",
     "lodash": "^4.15.0",
-    "mongoose": "^4.6.0",
+    "mongoose": "^5.9.9",
     "path": "^0.12.7"
   },
   "devDependencies": {
